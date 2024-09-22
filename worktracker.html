@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Schoolwork tracker</title>
+        <style>
+			body {
+				background-color: #8CD8FF;
+				margin: 0;
+				padding: 0;
+				font-family: Arial;
+				user-select: none;
+			}
+
+        	#nav {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				background-color: white;
+				border-bottom: 4px solid black;
+				width: 100%;
+				display: flex;
+			}
+
+			.navitem {
+				padding: 15px;
+				height: 80px;
+			}
+
+			.navitem:not(#help) {
+				float: left;
+			}
+
+			.navitem * {
+				padding: 11px 13px;
+				margin-top: 12px;
+			}
+
+			#id, #load {
+				margin-top: 22px;
+				border-radius: 15px;
+				border: 3px solid black;
+			}
+
+			.navitem:has(#help) {
+				float: right;
+				margin-left: 52%;
+			}
+
+			#help {
+				width: 75px;
+				height: 75px;
+				font-size: 250%;
+				font-weight: 600;
+				border-radius: 100%;
+				border: 5px solid black;
+				margin: auto 0;
+			}
+
+			#help:hover {
+				animation: helphover 300ms 1;
+				background-color: #DADADA;
+			}
+
+			@keyframes helphover {
+				from {
+					background-color: white;
+				}
+
+				to {
+					background-color: #DADADA;
+				}
+			}
+
+			h1 {
+				font-size: 230%;
+				font-family: Arial;
+			}
+
+			button {
+				cursor: pointer;
+				background-color: white;
+				border: 3px solid black;
+				color: black;
+				border-radius: 15px;
+				padding: 11px 13px;
+			}
+
+			#add {
+				margin: 15px;
+				font-size: 125%;
+				color: #F5FFFF;
+				background-color: #009479;
+				font-weight: 800;
+				padding: 15px;
+			}
+
+			#add:hover {
+				animation: addhover 200ms 1;
+				background-color: #33C7AC;
+			}
+
+			.alertdesc {
+				font-size: 20px;
+				display: inline-block;
+			}
+
+			.alertinp {
+				padding: 7px;
+				margin-left: 5px;
+				border-radius: 7px;
+				border: 1px solid black;
+				width: 200px;
+			}
+
+			.alertbtn {
+				border-radius: 10px;
+				width: 30px;
+				height: 30px;
+				margin: 0;
+				padding: 0;
+				border: 0;
+				display: inline-block;
+			}
+
+			.alertbtn:hover {
+				border: 1.5px solid #6AB6DD;
+				background-color: #DFFEFF;
+			}
+
+			.alertbtn div {
+				border-radius: 100%;
+				width: 20px;
+				height: 20px;
+				display: inline-block;
+				margin-bottom: -5px;
+			}
+
+			#diffcircle1, #diffcircle_1 {
+				background-color: green;
+			}
+
+			#diffcircle2, #diffcircle_2 {
+				background-color: orange;
+			}
+
+			#diffcircle3, #diffcircle_3 {
+				background-color: red;
+			}
+
+			#plussign {
+				margin: 10px 10px 10px 0;
+				font-size: 20px;
+				border: 5px solid green;
+				border-radius: 100%;
+				padding: 2px 8px;
+				background-color: #28BD26;
+				color: white;
+			}
+
+			@keyframes addhover {
+				from {
+					background-color: #009479;
+				}
+
+				to {
+					background-color: #33C7AC;
+				}
+			}
+
+			#switch {
+				font-size: 125%;
+				color: #F5FFFF;
+				background-color: #AAA;
+				font-weight: 800;
+				padding: 11px;
+			}
+
+			#switch:hover {
+				animation: switchhover 200ms 1;
+				background-color: #CCC;
+			}
+
+			#switc {
+				margin: 10px 10px 10px 0;
+				font-size: 20px;
+				border: 5px solid #555;
+				border-radius: 100%;
+				padding: 2px 4px;
+				background-color: #DDD;
+				color: #666;
+			}
+
+			@keyframes switchhover {
+				from {
+					background-color: #AAA;
+				}
+
+				to {
+					background-color: #CCC;
+				}
+			}
+
+			#periodlabels {
+				width: max-content;
+			}
+
+			#periodnoselect {
+				padding: 15px;
+				font-size: 20px;
+				border-radius: 15px;
+				border: 3px solid black;
+				margin-left: 10px;
+				cursor: pointer;
+			}
+
+			#periodview {
+				margin-left: 20px;
+				width: 90%;
+			}
+
+			#periodgroups {
+				display: flex;
+				align-items: flex-start;
+				width: fit-content;
+			}
+			
+			.periodlabel, .periodgroup {
+				border: 4px solid black;
+				display: inline-block;
+				padding: 15px;
+				background-color: white;
+				margin: 0 0 0 -5px;
+				width: 17%;
+				text-align: center;
+			}
+
+			.periodgroup:not(.periodgroup:last-child) {
+				border-right: 8.5px solid black;
+			}
+
+			.periodlabel {
+				font-size: 200%;
+				width: 290px;
+			}
+
+			.periodlabel:nth-child(7) {
+				margin: 0;
+			}
+			
+			.periodgroup {
+				min-height: 595px;
+				display; flex;
+				width: 290px;
+			}
+
+			#galleryview {
+				width: 98%;
+				min-height: 700px;
+				background-color: white;
+				border: 4px solid black;
+				margin: auto;
+				display: none;
+			}
+
+			#galleryview .assignment {
+				width: 23.4%;
+				display: inline-block;
+				margin: 15px 0 15px 15px;
+			}
+
+			#galleryview .assignment:first-child {
+				margin-left: 15px;
+			}
+
+			.assignment {
+				text-align: center;
+				border: 3px solid black;
+				border-radius: 10px;
+				width: 95%;
+				margin: auto;
+			}
+
+			.periodgroup .assignment:not(.periodgroup .assignment:first-child) {
+				margin-top: 15px;
+			}
+
+			.wtitle {
+				font-size: 150%;
+				margin-bottom: 5%;
+			}
+
+			.wnote {
+				margin-top: 5%;
+			}
+
+			.wdate {
+				margin: 5px;
+				font-size: 90%;
+				display: inline-block;
+				color: #777;
+			}
+
+			.wedit, .wremove {
+				font-size: 110%;
+				padding: 1px 5px;
+				border-radius: 100%;
+				background-color: #E9E9E9;
+			}
+
+			.wremove {
+				margin-bottom: 5px;
+				font-size: 110%;
+				padding: 1px 2px;
+			}
+
+			.wrow {
+				margin-bottom: -30px;
+			}
+
+			.wpriotityp {
+				margin: 4%;
+			}
+
+			.wstatus {
+				font-size: 90%;
+			}
+
+			.wbtnrow {
+				margin-top: -10px;
+			}
+
+			.diff {
+				width: 14px;
+				height: 14px;
+				border-radius: 100%;
+				display: inline-block;
+				margin-left: 4px;
+			}
+
+			.easy {
+				background-color: green;
+			}
+
+			.medium {
+				background-color: orange;
+			}
+
+			.hard {
+				background-color: red;
+			}
+
+			.wpriotityp, .wdifficultyp {
+				display: inline-block;
+				font-size: 90%;
+			}
+        </style>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	</head>
+	<body>
+		<div id="nav">
+			<div class="navitem"><h1>Schoolwork Tracker</h1></div>
+			<div class="navitem"><input id="id" placeholder="Load tracker ID"></div>
+			<div class="navitem"><button id="load">Open</button></div>
+			<div class="navitem"><button id="help">?</button></div>
+		</div>
+		<button id="add"><span id="plussign">+</span>Add new assignment</button><button id="switch"><span id="switc">&hArr;</span>Switch Views</button>
+		<select id="periodnoselect">
+			<option value="five">5 periods</option>
+			<option value="seven">7 periods</option>
+		</select>
+		<div id="periodview">
+			<div id="periodlabels">
+				<div class="periodlabel">1st period</div>
+				<div class="periodlabel">2nd period</div>
+				<div class="periodlabel">3rd period</div>
+				<div class="periodlabel">4th period</div>
+				<div class="periodlabel">5th period</div>
+			</div>
+			<div id="periodgroups">
+				<div class="periodgroup">
+
+				</div>
+				<div class="periodgroup">
+					
+				</div>
+				<div class="periodgroup">
+					
+				</div>
+				<div class="periodgroup">
+					
+				</div>
+				<div class="periodgroup">
+					
+				</div>
+			</div>
+		</div>
+		<div id="galleryview">
+			
+		</div>
+	</body>
+	<script type="module">
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+		import { getDatabase, ref, get, set, child, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+		
+		const firebaseConfig = {
+			apiKey: "AIzaSyBm_bXognYCjeBahM997WlM-tyZVs9EpQc",
+			authDomain: "work-tracker-df12a.firebaseapp.com",
+			projectId: "work-tracker-df12a",
+			storageBucket: "work-tracker-df12a.appspot.com",
+			messagingSenderId: "256524322948",
+			appId: "1:256524322948:web:add9e942328e47f13ddad1",
+			measurementId: "G-XRP05YH1PD"
+		};
+		
+		const app = initializeApp(firebaseConfig);
+		const db = getDatabase(app);
+
+		// Database functions
+
+		function saveData(targetkey, targetvalue) {
+			set(ref(db, targetkey), targetvalue);
+		}
+
+		/*
+		get(child(ref(db), ---------key---------)).then((value) => {
+			value = value.val();
+			
+
+		});
+		*/
+
+		// -----------------
+		// Website Function
+		// -----------------
+
+		// Variables
+
+		let viewtoggle = true;
+		let currentid;
+		let assignments = [];
+		// Everything else
+
+		help.onclick = () => {
+			Swal.fire({
+				title: "How to Use",
+				text: "Use 'add assignment' button to add an assignment. The 'switch view' button switches from period view to gallery view. You can also switch between 5 period view and 7 period view. You cannot switch from 7 to 5 periods if you have any assignments in 6th or 7th period. Tracker IDs save your assignments to be viewed after the page refreshes. Opening an unused one will save your current assignments to that ID. Opening an already used one will clear all the current assignments and show the assignments that were saved on that ID.",
+				icon: "info"
+			});
+		}
+
+		function displayassignments(unsortedassignmentlist) {
+			// clear previous assignment views
+			let periodgrouplist = document.getElementsByClassName("periodgroup");
+			for (let currperiodgroup of periodgrouplist) {
+				currperiodgroup.innerHTML = "";
+			}
+			document.getElementById("galleryview").innerHTML = "";
+
+			let assignmentlist = [];
+
+			for (let currassignment in unsortedassignmentlist) {
+				if (assignmentlist.length == 0) {
+					assignmentlist.push(unsortedassignmentlist[currassignment]);
+				} else {
+					for (let setassignment in assignmentlist) {
+						if (unsortedassignmentlist[currassignment].date < assignmentlist[setassignment].date) {
+							assignmentlist.splice(setassignment, 0, unsortedassignmentlist[currassignment]);
+							break;
+						}
+					}
+					if (assignmentlist.length < Number(currassignment) + 1) {
+						assignmentlist.push(unsortedassignmentlist[currassignment]);
+					}
+				}
+
+				if (unsortedassignmentlist[currassignment].period > 5) {
+					if (periodnoselect.value == "five") {
+						periodlabels.innerHTML += "<div class='periodlabel'>6th period</div><div class='periodlabel'>7th period</div>";
+						periodgroups.innerHTML += "<div class='periodgroup'></div><div class='periodgroup'></div>";
+						let pl = document.getElementsByClassName("periodlabel");
+						let pg = document.getElementsByClassName("periodgroup");
+						for (var i = 0; i < pg.length; i++) {
+						    pg[i].style.width = "200px";
+						}
+						for (var i = 0; i < pl.length; i++) {
+						    pl[i].style.width = "200px";
+						}
+						periodnoselect.value = "seven";
+					}
+				}
+			}
+
+			assignments = assignmentlist;
+
+			for (let currassignment in assignmentlist) {
+				let nextassignment = `
+					<div class="assignment" id="assignment${currassignment}">
+						<h1 class="wtitle">${assignmentlist[currassignment].title}</h1>
+						<p class="wnote">${assignmentlist[currassignment].desc}</p>
+						<div class="wrow">
+							<p class="wpriotityp">Priority: <span>${(assignmentlist[currassignment].priority == "h" ? "High" : (assignmentlist[currassignment].priority == "m" ? "Mid" : "Low"))}</span></p>
+							<p class="wdifficultyp">Difficulty:<div class="diff ${(assignmentlist[currassignment].difficulty == "3" ? "hard" : (assignmentlist[currassignment].difficulty == "2" ? "medium" : "easy"))}"></div></p>
+						</div>
+						<p class="wstatus">Status: <span>${assignmentlist[currassignment].status != "" ? assignmentlist[currassignment].status : "N/A"}</span></p>
+						<div class="wbtnrow">
+							<p class="wdate">${assignmentlist[currassignment].date != "" ? convertdateformatting(assignmentlist[currassignment].date) : "No due date"}</p>
+							<button class="wedit" data-assignment-id="${currassignment}" id="wedit${currassignment}">&#9998;</button>
+							<button class="wremove" data-assignment-id="${currassignment}" id="wremove${currassignment}">&#9003;</button>
+						</div>
+					</div>`;
+
+				periodgrouplist[Number(assignmentlist[currassignment].period) - 1].innerHTML += nextassignment;
+				document.getElementById("galleryview").innerHTML += nextassignment;
+
+				let wedits = document.getElementsByClassName("wedit");
+				for (let wedit of wedits) {
+					wedit.onclick = function() {editassignment(Number(this.getAttribute("data-assignment-id")))}
+				}
+				let wremoves = document.getElementsByClassName("wremove");
+				for (let wremove of wremoves) {
+					wremove.onclick = function() {removeassignment(Number(this.getAttribute("data-assignment-id")))}
+				}
+			}
+			if (currentid) {
+				saveData(currentid, assignments);
+			}
+		}
+
+		function convertdateformatting(inputteddate) {
+			let rm = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"][Number(inputteddate.substring(5, 7)) - 1];
+			let rd = Number(inputteddate.substring(8, 10));
+			let ry = inputteddate.substring(0, 4);
+			return `${rm} ${rd}, ${ry}`;
+		}
+
+		if (localStorage.suggestedId && localStorage.suggestedId != "") {
+			id.value = localStorage.suggestedId;
+		}
+
+		load.onclick = function() {
+			if (id.value.length >= 4 && id.value.length <= 30 && !id.value.includes("/")) {
+				currentid = id.value;
+				get(child(ref(db), currentid)).then((storedassignments) => {
+					storedassignments = storedassignments.val();
+				
+					if (storedassignments !== null) {
+						// show assignments
+						assignments = Object.values(storedassignments);
+						displayassignments(assignments);
+					} else {
+						// save assignments
+						saveData(currentid, assignments);
+					}
+				});
+
+				localStorage.suggestedId = currentid;
+			} else {
+				Swal.fire({
+					title: "Invalid ID",
+					text: "Tracker ID has to be 4-30 characters long and cannot include the symbol '/'.",
+					icon: "error"
+				});
+			}
+		}
+
+		add.onclick = function() {
+			Swal.fire({
+				title: "Add Assignment",
+				icon: "info",
+				html: "<p class='alertdesc'>Title: </p><input class='alertinp' id='titleinp' placeholder='Circuitry Vocab'><br><p class='alertdesc'>Description: </p><input class='alertinp' id='descinp' placeholder='15 terms, complete in 30 minutes.'><br><p class='alertdesc'>Priority: </p><select style='cursor: pointer;' class='alertinp' id='priorityinp'><option value='l'>Low</option><option value='m'>Mid</option><option value='h'>High</option></select><br><p class='alertdesc'>Difficulty: </p><button class='alertbtn' id='difficultyinp1' style='border: 1.5px solid #6AB6DD; background-color: #DFFEFF;' onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue\").innerText = 1;'><div id='diffcircle1'></div></button><button class='alertbtn' id='difficultyinp2'onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue\").innerText = 2;'><div id='diffcircle2'></div></button><button class='alertbtn' id='difficultyinp3'onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue\").innerText = 3;'><div id='diffcircle3'></div></button><p id='diffvalue' style='display: none;'>1</p><br><p class='alertdesc'>Due Date: </p><input class='alertinp' id='dateinp' type='date' style='cursor: pointer;'><br><p class='alertdesc'>Status: </p><input class='alertinp' id='statusinp' placeholder='Not started, In progress, e.t.c.'><br><p class='alertdesc'>Period: </p><select style='cursor: pointer;' class='alertinp' id='periodinp' onclick='if (document.getElementById(\"periodnoselect\").value == \"five\" && document.getElementById(\"p6thing\") !== null){document.getElementById(\"p6thing\").remove();document.getElementById(\"p7thing\").remove()}'><option value='1'>1st period</option><option value='2'>2nd period</option><option value='3'>3rd period</option><option value='4'>4th period</option><option value='5'>5th period</option><option value='6' id='p6thing'>6th period</option><option value='7' id='p7thing'>7th period</option></select>",
+				showDenyButton: true,
+				confirmButtonText: "Add",
+				denyButtonText: "Cancel",
+				reverseButtons: true
+			}).then((result) => {
+				if (result.isConfirmed) {
+					if (document.getElementById("titleinp").value != "") {
+						let newassignment = {
+							title: document.getElementById("titleinp").value,
+							desc: document.getElementById("descinp").value,
+							priority: document.getElementById("priorityinp").value,
+							difficulty: document.getElementById("diffvalue").innerText,
+							status: document.getElementById("statusinp").value,
+							date: document.getElementById("dateinp").value,
+							period: document.getElementById("periodinp").value
+						}
+						assignments.push(newassignment);
+						displayassignments(assignments);
+					} else {
+						Swal.fire({
+							title: "No Title",
+							text: "You must provide a title.",
+							icon: "error"
+						});
+					}
+				}
+			});
+		}
+
+		periodnoselect.oninput = function() {
+			if (periodnoselect.value == "five") {
+				let pl1 = document.getElementsByClassName("periodlabel");
+				let pg1 = document.getElementsByClassName("periodgroup");
+
+				pl1[pl1.length - 2].remove();
+				pl1[pl1.length - 1].remove();
+				pg1[pg1.length - 2].remove();
+				pg1[pg1.length - 1].remove();
+			} else {
+				periodlabels.innerHTML += "<div class='periodlabel'>6th period</div><div class='periodlabel'>7th period</div>";
+				periodgroups.innerHTML += "<div class='periodgroup'></div><div class='periodgroup'></div>";
+			}
+			let pl = document.getElementsByClassName("periodlabel");
+			let pg = document.getElementsByClassName("periodgroup");
+			let selectedwidth = periodnoselect.value == "five" ? "290px" : "200px";
+			for (var i = 0; i < pg.length; i++) {
+			    pg[i].style.width = selectedwidth;
+			}
+			for (var i = 0; i < pl.length; i++) {
+			    pl[i].style.width = selectedwidth;
+			}
+
+			displayassignments(assignments);
+		}
+
+		switchview.onclick = function() {
+			if (viewtoggle) {
+				viewtoggle = false;
+				periodview.style.display = "none";
+				galleryview.style.display = "block";
+			} else {
+				viewtoggle = true;
+				periodview.style.display = "block";
+				galleryview.style.display = "none";
+			}
+		}
+
+		function editassignment(assignmentid) {
+			Swal.fire({
+				title: "Edit Assignment",
+				icon: "info",
+				html: "<p class='alertdesc'>Title: </p><input class='alertinp' id='titleinp1' placeholder='Circuitry Vocab' value=" + assignments[assignmentid].title + "><br><p class='alertdesc'>Description: </p><input class='alertinp' id='descinp1' placeholder='15 terms, complete in 30 minutes.' value=" + assignments[assignmentid].desc + "><br><p class='alertdesc'>Priority: </p><select style='cursor: pointer;' class='alertinp' id='priorityinp1'><option value='l'>Low</option><option value='m'" + (assignments[assignmentid].priority == "m" ? " selected" : "") + ">Mid</option><option value='h'" + (assignments[assignmentid].priority == "h" ? " selected" : "") + ">High</option></select><br><p class='alertdesc'>Difficulty: </p><button class='alertbtn' id='difficultyinp_1' style='" + (assignments[assignmentid].difficulty == 1 ? "border: 1.5px solid #6AB6DD; background-color: #DFFEFF;" : "") + "' onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue1\").innerText = 1;'><div id='diffcircle_1'></div></button><button class='alertbtn' id='difficultyinp_2' style='" + (assignments[assignmentid].difficulty == 2 ? "border: 1.5px solid #6AB6DD; background-color: #DFFEFF;" : "") + "' onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue1\").innerText = 2;'><div id='diffcircle_2'></div></button><button class='alertbtn' id='difficultyinp_3' style='" + (assignments[assignmentid].difficulty == 3 ? "border: 1.5px solid #6AB6DD; background-color: #DFFEFF;" : "") + "' onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue1\").innerText = 3;'><div id='diffcircle_3'></div></button><p id='diffvalue1' style='display: none;'>" + assignments[assignmentid].difficulty + "</p><br><p class='alertdesc'>Due Date: </p><input class='alertinp' id='dateinp' type='date' style='cursor: pointer;' value=" + assignments[assignmentid].date + "><br><p class='alertdesc'>Status: </p><input class='alertinp' id='statusinp1' placeholder='Not started, In progress, e.t.c.' value=" + assignments[assignmentid].status + "><br><p class='alertdesc'>Period: </p><select style='cursor: pointer;' class='alertinp' id='periodinp1' onclick='if (document.getElementById(\"periodnoselect\").value == \"five\" && document.getElementById(\"p6thing1\") !== null){document.getElementById(\"p6thing1\").remove();document.getElementById(\"p7thing1\").remove()}'><option value='1'>1st period</option><option value='2'" + (assignments[assignmentid].period == "2" ? " selected" : "") + ">2nd period</option><option value='3'" + (assignments[assignmentid].period == "3" ? " selected" : "") + ">3rd period</option><option value='4'" + (assignments[assignmentid].period == "4" ? " selected" : "") + ">4th period</option><option value='5'" + (assignments[assignmentid].period == "5" ? " selected" : "") + ">5th period</option><option value='6' id='p6thing1'" + (assignments[assignmentid].period == "6" ? " selected" : "") + ">6th period</option><option value='7' id='p7thing1'" + (assignments[assignmentid].period == "7" ? " selected" : "") + ">7th period</option></select>",
+				showDenyButton: true,
+				confirmButtonText: "Save",
+				denyButtonText: "Cancel",
+				reverseButtons: true
+			}).then((result) => {
+				if (result.isConfirmed) {
+					if (document.getElementById("titleinp1").value != "") {
+						let newassignment = {
+							title: document.getElementById("titleinp1").value,
+							desc: document.getElementById("descinp1").value,
+							priority: document.getElementById("priorityinp1").value,
+							difficulty: document.getElementById("diffvalue1").innerText,
+							status: document.getElementById("statusinp1").value,
+							date: document.getElementById("dateinp").value,
+							period: document.getElementById("periodinp1").value
+						}
+						assignments[assignmentid] = newassignment;
+						if (currentid) {
+							saveData(currentid, assignments);
+						}
+						displayassignments(assignments);
+					} else {
+						Swal.fire({
+							title: "No Title",
+							text: "You must provide a title.",
+							icon: "error"
+						});
+					}
+					displayassignments(assignments);
+				}
+			});
+		}
+
+		function removeassignment(assignmentid) {
+			Swal.fire({
+				title: "Remove Assignment",
+				text: "Are you sure you want to remove this assignment? This cannot be undone.",
+				icon: "question",
+				showCancelButton: true,
+				confirmButtonText: "Yes",
+				reverseButtons: true
+			}).then((result) => {
+				if (result.isConfirmed) {
+					document.getElementById("assignment" + assignmentid).remove();
+					assignments.splice(Number(assignmentid), 1);
+					displayassignments(assignments);
+				}
+			});
+		}
+	</script>
+    <script>
+    	let help = document.getElementById("help");
+    	let id = document.getElementById("id");
+    	let load = document.getElementById("load");
+    	let add = document.getElementById("add");
+    	let periodnoselect = document.getElementById("periodnoselect");
+    	let switchview = document.getElementById("switch");
+    	let periodview = document.getElementById("periodview");
+    	let periodlabels = document.getElementById("periodlabels");
+    	let periodgroups = document.getElementById("periodgroups");
+    	let galleryview = document.getElementById("galleryview");
+    </script>
+</html>
