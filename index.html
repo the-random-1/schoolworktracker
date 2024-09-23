@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<title>Schoolwork tracker</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        	<style>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <style>
 			body {
 				background-color: #8CD8FF;
 				margin: 0;
@@ -12,7 +12,7 @@
 				user-select: none;
 			}
 
-        		#nav {
+        	#nav {
 				list-style-type: none;
 				margin: 0;
 				padding: 0;
@@ -280,6 +280,7 @@
 				border-radius: 10px;
 				width: 95%;
 				margin: auto;
+				word-wrap: break-word;
 			}
 
 			.periodgroup .assignment:not(.periodgroup .assignment:first-child) {
@@ -355,7 +356,7 @@
 				display: inline-block;
 				font-size: 90%;
 			}
-        	</style>
+        </style>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	</head>
 	<body>
@@ -641,7 +642,7 @@
 			Swal.fire({
 				title: "Edit Assignment",
 				icon: "info",
-				html: "<p class='alertdesc'>Title: </p><input class='alertinp' id='titleinp1' placeholder='Circuitry Vocab' value=" + assignments[assignmentid].title + "><br><p class='alertdesc'>Description: </p><input class='alertinp' id='descinp1' placeholder='15 terms, complete in 30 minutes.' value=" + assignments[assignmentid].desc + "><br><p class='alertdesc'>Priority: </p><select style='cursor: pointer;' class='alertinp' id='priorityinp1'><option value='l'>Low</option><option value='m'" + (assignments[assignmentid].priority == "m" ? " selected" : "") + ">Mid</option><option value='h'" + (assignments[assignmentid].priority == "h" ? " selected" : "") + ">High</option></select><br><p class='alertdesc'>Difficulty: </p><button class='alertbtn' id='difficultyinp_1' style='" + (assignments[assignmentid].difficulty == 1 ? "border: 1.5px solid #6AB6DD; background-color: #DFFEFF;" : "") + "' onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue1\").innerText = 1;'><div id='diffcircle_1'></div></button><button class='alertbtn' id='difficultyinp_2' style='" + (assignments[assignmentid].difficulty == 2 ? "border: 1.5px solid #6AB6DD; background-color: #DFFEFF;" : "") + "' onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue1\").innerText = 2;'><div id='diffcircle_2'></div></button><button class='alertbtn' id='difficultyinp_3' style='" + (assignments[assignmentid].difficulty == 3 ? "border: 1.5px solid #6AB6DD; background-color: #DFFEFF;" : "") + "' onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue1\").innerText = 3;'><div id='diffcircle_3'></div></button><p id='diffvalue1' style='display: none;'>" + assignments[assignmentid].difficulty + "</p><br><p class='alertdesc'>Due Date: </p><input class='alertinp' id='dateinp' type='date' style='cursor: pointer;' value=" + assignments[assignmentid].date + "><br><p class='alertdesc'>Status: </p><input class='alertinp' id='statusinp1' placeholder='Not started, In progress, e.t.c.' value=" + assignments[assignmentid].status + "><br><p class='alertdesc'>Period: </p><select style='cursor: pointer;' class='alertinp' id='periodinp1' onclick='if (document.getElementById(\"periodnoselect\").value == \"five\" && document.getElementById(\"p6thing1\") !== null){document.getElementById(\"p6thing1\").remove();document.getElementById(\"p7thing1\").remove()}'><option value='1'>1st period</option><option value='2'" + (assignments[assignmentid].period == "2" ? " selected" : "") + ">2nd period</option><option value='3'" + (assignments[assignmentid].period == "3" ? " selected" : "") + ">3rd period</option><option value='4'" + (assignments[assignmentid].period == "4" ? " selected" : "") + ">4th period</option><option value='5'" + (assignments[assignmentid].period == "5" ? " selected" : "") + ">5th period</option><option value='6' id='p6thing1'" + (assignments[assignmentid].period == "6" ? " selected" : "") + ">6th period</option><option value='7' id='p7thing1'" + (assignments[assignmentid].period == "7" ? " selected" : "") + ">7th period</option></select>",
+				html: "<p class='alertdesc'>Title: </p><input class='alertinp' id='titleinp1' placeholder='Circuitry Vocab' value=" + assignments[assignmentid].title.replace(/ /g, "&#160;") + "><br><p class='alertdesc'>Description: </p><input class='alertinp' id='descinp1' placeholder='15 terms, complete in 30 minutes.' value=" + assignments[assignmentid].desc.replace(/ /g, "&#160;") + "><br><p class='alertdesc'>Priority: </p><select style='cursor: pointer;' class='alertinp' id='priorityinp1'><option value='l'>Low</option><option value='m'" + (assignments[assignmentid].priority == "m" ? " selected" : "") + ">Mid</option><option value='h'" + (assignments[assignmentid].priority == "h" ? " selected" : "") + ">High</option></select><br><p class='alertdesc'>Difficulty: </p><button class='alertbtn' id='difficultyinp_1' style='" + (assignments[assignmentid].difficulty == 1 ? "border: 1.5px solid #6AB6DD; background-color: #DFFEFF;" : "") + "' onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue1\").innerText = 1;'><div id='diffcircle_1'></div></button><button class='alertbtn' id='difficultyinp_2' style='" + (assignments[assignmentid].difficulty == 2 ? "border: 1.5px solid #6AB6DD; background-color: #DFFEFF;" : "") + "' onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue1\").innerText = 2;'><div id='diffcircle_2'></div></button><button class='alertbtn' id='difficultyinp_3' style='" + (assignments[assignmentid].difficulty == 3 ? "border: 1.5px solid #6AB6DD; background-color: #DFFEFF;" : "") + "' onclick='let diffbtns = document.getElementsByClassName(\"alertbtn\");for (diffbtn of diffbtns) {diffbtn.removeAttribute(\"style\");}this.style.border = \"1.5px solid #6AB6DD\";this.style.backgroundColor = \"#DFFEFF\";document.getElementById(\"diffvalue1\").innerText = 3;'><div id='diffcircle_3'></div></button><p id='diffvalue1' style='display: none;'>" + assignments[assignmentid].difficulty + "</p><br><p class='alertdesc'>Due Date: </p><input class='alertinp' id='dateinp' type='date' style='cursor: pointer;' value=" + assignments[assignmentid].date + "><br><p class='alertdesc'>Status: </p><input class='alertinp' id='statusinp1' placeholder='Not started, In progress, e.t.c.' value=" + assignments[assignmentid].status.replace(/ /g, "&#160;") + "><br><p class='alertdesc'>Period: </p><select style='cursor: pointer;' class='alertinp' id='periodinp1' onclick='if (document.getElementById(\"periodnoselect\").value == \"five\" && document.getElementById(\"p6thing1\") !== null){document.getElementById(\"p6thing1\").remove();document.getElementById(\"p7thing1\").remove()}'><option value='1'>1st period</option><option value='2'" + (assignments[assignmentid].period == "2" ? " selected" : "") + ">2nd period</option><option value='3'" + (assignments[assignmentid].period == "3" ? " selected" : "") + ">3rd period</option><option value='4'" + (assignments[assignmentid].period == "4" ? " selected" : "") + ">4th period</option><option value='5'" + (assignments[assignmentid].period == "5" ? " selected" : "") + ">5th period</option><option value='6' id='p6thing1'" + (assignments[assignmentid].period == "6" ? " selected" : "") + ">6th period</option><option value='7' id='p7thing1'" + (assignments[assignmentid].period == "7" ? " selected" : "") + ">7th period</option></select>",
 				showDenyButton: true,
 				confirmButtonText: "Save",
 				denyButtonText: "Cancel",
