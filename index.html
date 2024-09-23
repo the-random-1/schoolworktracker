@@ -465,14 +465,18 @@
 				if (assignmentlist.length == 0) {
 					assignmentlist.push(unsortedassignmentlist[currassignment]);
 				} else {
-					for (let setassignment in assignmentlist) {
-						if (unsortedassignmentlist[currassignment].date < assignmentlist[setassignment].date) {
-							assignmentlist.splice(setassignment, 0, unsortedassignmentlist[currassignment]);
-							break;
-						}
-					}
-					if (assignmentlist.length < Number(currassignment) + 1) {
+					if (unsortedassignmentlist[currassignment].date == "") {
 						assignmentlist.push(unsortedassignmentlist[currassignment]);
+					} else {
+						for (let setassignment in assignmentlist) {
+							if (unsortedassignmentlist[currassignment].date < assignmentlist[setassignment].date) {
+								assignmentlist.splice(setassignment, 0, unsortedassignmentlist[currassignment]);
+								break;
+							}
+						}
+						if (assignmentlist.length < Number(currassignment) + 1) {
+							assignmentlist.push(unsortedassignmentlist[currassignment]);
+						}
 					}
 				}
 
