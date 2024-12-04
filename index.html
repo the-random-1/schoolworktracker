@@ -10,12 +10,13 @@
 				padding: 0;
 				font-family: Arial;
 				user-select: none;
+				width: fit-content;
 			}
 
         	#nav {
 				list-style-type: none;
 				margin: 0;
-				padding: 0;
+				padding: 0 2px 0 0;
 				overflow: hidden;
 				background-color: white;
 				border-bottom: 4px solid black;
@@ -43,11 +44,6 @@
 				border: 3px solid black;
 			}
 
-			.navitem:has(#help) {
-				float: right;
-				margin-left: 52%;
-			}
-
 			#help {
 				width: 75px;
 				height: 75px;
@@ -55,11 +51,11 @@
 				font-weight: 600;
 				border-radius: 100%;
 				border: 5px solid black;
-				margin: auto 0;
+				margin: auto 0 auto max(-7px, calc(100vw - 810px));
 			}
 
 			#help:hover {
-				animation: helphover 300ms 1;
+				animation: helphover 300ms;
 				background-color: #DADADA;
 			}
 
@@ -88,7 +84,7 @@
 			}
 
 			#add {
-				margin: 15px;
+				margin: 15px 10px 15px 15px;
 				font-size: 125%;
 				color: #F5FFFF;
 				background-color: #009479;
@@ -97,7 +93,7 @@
 			}
 
 			#add:hover {
-				animation: addhover 200ms 1;
+				animation: addhover 200ms;
 				background-color: #33C7AC;
 			}
 
@@ -178,7 +174,7 @@
 			}
 
 			#switch:hover {
-				animation: switchhover 200ms 1;
+				animation: switchhover 200ms;
 				background-color: #CCC;
 			}
 
@@ -199,6 +195,157 @@
 
 				to {
 					background-color: #CCC;
+				}
+			}
+
+			#todolistbtn {
+				font-size: 125%;
+				color: #F5FFFF;
+				background-color: #40A4EE;
+				font-weight: 800;
+				padding: 15px 11px;
+				margin-left: 10px;
+			}
+
+			#todolistbtn:hover {
+				animation: todohover 200ms;
+				background-color: #6BC6FF;
+			}
+
+			#todoicon {
+				margin: 10px 10px 10px 0;
+				font-size: 20px;
+				border-radius: 100%;
+				padding: 2px 8px;
+				border: 5px solid #0C5896;
+				background-color: #69BAFF;
+				color: #0C5896;
+			}
+
+			#tdlrowcon {
+				display: inline-block;
+			}
+
+			#tdlindicator {
+				background-color: red;
+				color: white;
+				text-align: center;
+				font-size: 80%;
+				border: 3px solid #900;
+				border-radius: 100%;
+				width: 20px;
+				height: 20px;
+				padding: 6px 3px 0 3px;
+				position: relative;
+				right: 25px;
+				bottom: 25px;
+				display: none;
+			}
+
+			@keyframes todohover {
+				from {
+					background-color: #40A4EE;
+				}
+
+				to {
+					background-color: #6BC6FF;
+				}
+			}
+
+			#todolistcon {
+				text-align: left;
+				border: 3px solid #999;
+				border-radius: 15px;
+				padding: 3px 20px;
+			    flex-wrap: wrap;
+			    text-align: left;
+			    overflow-wrap: break-word;
+			    overflow: auto;
+			    user-select: text;
+			    max-height: 500px;
+			}
+
+			#swal2-html-container {
+				height: fit-content !important;
+			}
+
+			.tdlitem, #addtdlitemdiv {
+				margin: 15px 0 15px 15px;
+			}
+
+			#addtdlitemdiv {
+				display: flex;
+			}
+
+			#addtdlitembtn {
+				background-color: #CCEDFC;
+				border: 3px solid #32ADE6;
+				color: #217196;
+				border-radius: 100%;
+				font-size: 25px;
+				padding: 0 7px;
+				margin-left: -15px;
+			}
+
+			#addtdlitembtn:hover {
+				animation: addtdlitembtnhover 500ms;
+				background-color: #99FF94;
+				color: green;
+				border: 3px solid #5FC251;
+			}
+
+			#addtdlitembtn:focus {
+				animation: addtdlitembtnfocus 250ms;
+				outline: none;
+				background-color: #EAF3FF;
+			}
+
+			@keyframes addtdlitembtnfocus {
+				from {
+					background-color: #CCEDFC;
+				}
+
+				to {
+					background-color: #EAF3FF;
+				}
+			}
+
+			@keyframes addtdlitembtnhover {
+				from {
+					background-color: #CCEDFC;
+					color: #217196;
+					border: 3px solid #32ADE6;
+				}
+
+				to {
+					background-color: #99FF94;
+					color: green;
+					border: 3px solid #5FC251;
+				}
+			}
+
+			#addtdliteminp {
+				margin-left: 10px;
+				margin-right: 5px;
+				width: 100%;
+				border: none;
+				outline: none;
+				border-bottom: 2px solid black;
+			}
+
+			#addtdliteminp:focus {
+				border-bottom: 2px solid black;
+				animation: inpfocus 300ms;
+				background-color: #F5F5F5;
+			}
+
+			@keyframes inpfocus {
+				from {
+					background-color: #FFF;
+				}
+
+				to {
+					background-color: #F5F5F5;
 				}
 			}
 
@@ -303,17 +450,28 @@
 				color: #777;
 			}
 
-			.wedit, .wremove {
+			.wedit, .wremove, .wup, .wdown {
 				font-size: 110%;
 				padding: 1px 5px;
 				border-radius: 100%;
 				background-color: #E9E9E9;
+				border: 2px solid black;
+			}
+
+			:where(.wedit, .wremove, .wup, .wdown):hover {
+				background-color: #D9D9D9;
 			}
 
 			.wremove {
 				margin-bottom: 5px;
 				font-size: 110%;
 				padding: 1px 2px;
+			}
+
+			.wup, .wdown {
+				font-weight: 900;
+				font-size: 100%;
+				padding: 0 5px;
 			}
 
 			.wrow {
@@ -356,21 +514,109 @@
 				display: inline-block;
 				font-size: 90%;
 			}
+
+			.floatright {
+				float: right;
+			}
+
+			.tdlitemtxt {
+				display: inline;
+				padding: 5px;
+				margin: 0;
+				line-height: 150%;
+			}
+
+			.tdlitemcon:hover .tdlitemtxt {
+				animation: edithover 500ms;
+				background-color: #F0F0F0;
+			}
+
+			.tdlitemtxt:focus {
+				outline: none;
+			}
+
+
+			@keyframes edithover {
+				from {
+					background-color: white;
+				}
+
+				to {
+					background-color: #F0F0F0;
+				}
+			}
+
+			@keyframes fadein {
+				from {
+					opacity: 0;
+				}
+
+				to {
+					opacity: 100%;
+				}
+			}
         </style>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	</head>
 	<body>
+		<!-- To Do List Pop-up -->
+		<template id="tdlswal">
+			<swal-title>To-Do List</swal-title>
+			<swal-html>
+				<p>Add, edit (tap), remove, or reorder items from your to-do list.</p>
+				<div id="todolistcon">
+					<div class="tdlitem">&#8226;&nbsp;&nbsp;test test test test test test test test test test test test test test test test test test test test test test test
+						<br><button class="wremove floatright" data-assignment-id="0" id="wremove0">&#9003;</button>
+						<button class="wup floatright" data-assignment-id="0" id="wup0">&#9651;</button>
+						<button class="wdown floatright" data-assignment-id="0" id="wdown0">&#9661;</button>
+					</div><br><hr>
+					<div class="tdlitem">&#8226;&nbsp;&nbsp;test1
+						<br><button class="wremove floatright" data-assignment-id="1" id="wremove1">&#9003;</button>
+						<button class="wup floatright" data-assignment-id="1" id="wup1">&#9651;</button>
+						<button class="wdown floatright" data-assignment-id="1" id="wdown1">&#9661;</button>
+					</div><br><hr>
+					<div class="tdlitem">&#8226;&nbsp;&nbsp;test2
+						<br><button class="wremove floatright" data-assignment-id="2" id="wremove2">&#9003;</button>
+						<button class="wup floatright" data-assignment-id="2" id="wup2">&#9651;</button>
+						<button class="wdown floatright" data-assignment-id="2" id="wdown2">&#9661;</button>
+					</div><br><hr>
+					<div class="tdlitem">&#8226;&nbsp;&nbsp;test3
+						<br><button class="wremove floatright" data-assignment-id="3" id="wremove3">&#9003;</button>
+						<button class="wup floatright" data-assignment-id="3" id="wup3">&#9651;</button>
+						<button class="wdown floatright" data-assignment-id="3" id="wdown3">&#9661;</button>
+					</div><br><hr>
+					<div id="addtdlitemdiv">
+						<button id="addtdlitembtn">+</button>
+						<input id="addtdliteminp">
+					</div>
+				</div>
+			</swal-html>
+			<swal-icon type="info"></swal-icon>
+			<swal-button type="confirm">Save</swal-button>
+			<swal-button type="deny">Exit</swal-button>
+			<swal-param name="allowEscapeKey" value="true">
+			<swal-param name="customClass" value='{"popup": "tdlpopup"}'>
+			<swal-function-param name="didOpen" id="tdlwhenopened" value="popup => whentdlopened();">
+		</template>
+
 		<div id="nav">
-			<div class="navitem"><h1>Schoolwork Tracker</h1></div>
+			<div class="navitem"><h1 onclick="console.log(todolist);">Schoolwork&nbsp;Tracker</h1></div>
 			<div class="navitem"><input id="id" placeholder="Load tracker ID"></div>
 			<div class="navitem"><button id="load">Open</button></div>
 			<div class="navitem"><button id="help">?</button></div>
 		</div>
-		<button id="add"><span id="plussign">+</span>Add new assignment</button><button id="switch"><span id="switc">&hArr;</span>Switch Views</button>
-		<select id="periodnoselect">
-			<option value="five">5 periods</option>
-			<option value="seven">7 periods</option>
-		</select>
+		<div id="btnrow">
+			<button id="add"><span id="plussign">+</span>Add new assignment</button>
+			<button id="switch"><span id="switc">&hArr;</span>Switch Views</button>
+			<select id="periodnoselect">
+				<option value="five">5 periods</option>
+				<option value="seven">7 periods</option>
+			</select>
+			<div id="tdlrowcon">
+				<button id="todolistbtn"><span id="todoicon">&#8801;</span>To-Do list</button>
+				<span id="tdlindicator">99+</span>
+			</div>
+		</div>
 		<div id="periodview">
 			<div id="periodlabels">
 				<div class="periodlabel">1st period</div>
@@ -436,12 +682,7 @@
 		// Website Function
 		// -----------------
 
-		// Variables
 
-		let viewtoggle = true;
-		let currentid;
-		let assignments = [];
-		// Everything else
 
 		help.onclick = () => {
 			Swal.fire({
@@ -473,6 +714,10 @@
 								assignmentlist.splice(setassignment, 0, unsortedassignmentlist[currassignment]);
 								break;
 							}
+							if ((unsortedassignmentlist[currassignment].date == assignmentlist[setassignment].date) && (["l", "m", "h"].indexOf(unsortedassignmentlist[currassignment].priority) >= ["l", "m", "h"].indexOf(assignmentlist[setassignment].priority))) {
+								assignmentlist.splice(setassignment, 0, unsortedassignmentlist[currassignment]);
+								break;
+							}
 						}
 						if (assignmentlist.length < Number(currassignment) + 1) {
 							assignmentlist.push(unsortedassignmentlist[currassignment]);
@@ -496,9 +741,9 @@
 					}
 				}
 			}
-
+			
 			assignments = assignmentlist;
-
+			
 			for (let currassignment in assignmentlist) {
 				let nextassignment = `
 					<div class="assignment" id="assignment${currassignment}">
@@ -510,14 +755,22 @@
 						</div>
 						<p class="wstatus">Status: <span>${assignmentlist[currassignment].status != "" ? assignmentlist[currassignment].status : "N/A"}</span></p>
 						<div class="wbtnrow">
-							<p class="wdate">${assignmentlist[currassignment].date != "" ? convertdateformatting(assignmentlist[currassignment].date) : "No due date"}</p>
+							<p class="wdate" style="color: ${( new Date(assignmentlist[currassignment].date) - new Date(new Date().toLocaleDateString()) < 259200000 ? (new Date(assignmentlist[currassignment].date) - new Date(new Date().toLocaleDateString()) < 86400000 ? 
+								(new Date(assignmentlist[currassignment].date) - new Date(new Date().toLocaleDateString()) < -21600000 ? 
+								"magenta" : "red") : "orange") : "#777" )};">${assignmentlist[currassignment].date != "" ? convertdateformatting(assignmentlist[currassignment].date) : "No due date"}</p>
 							<button class="wedit" data-assignment-id="${currassignment}" id="wedit${currassignment}">&#9998;</button>
 							<button class="wremove" data-assignment-id="${currassignment}" id="wremove${currassignment}">&#9003;</button>
 						</div>
 					</div>`;
 
-				periodgrouplist[Number(assignmentlist[currassignment].period) - 1].innerHTML += nextassignment;
-				document.getElementById("galleryview").innerHTML += nextassignment;
+				if (viewtoggle) {
+					periodgrouplist[Number(assignmentlist[currassignment].period) - 1].innerHTML += nextassignment;
+					document.getElementById("galleryview").innerHTML = "";
+				} else {
+					periodgrouplist[Number(assignmentlist[currassignment].period) - 1].innerHTML = "";
+					document.getElementById("galleryview").innerHTML += nextassignment;
+				}
+				
 
 				let wedits = document.getElementsByClassName("wedit");
 				for (let wedit of wedits) {
@@ -529,8 +782,55 @@
 				}
 			}
 			if (currentid) {
-				saveData(currentid, assignments);
+				saveData(currentid + "/assignments", assignments);
 			}
+		}
+
+		function displayandsavelist(inputtedtodolist) {
+			let returnedhtml;
+			if (currentid && currentid != "") {
+				saveData(currentid + "/todolist", inputtedtodolist);
+			}
+			if (inputtedtodolist !== null) {
+				let listitemshtml = "";
+				for (let listitem in inputtedtodolist) {
+					listitemshtml += `
+					<div class="tdlitemcon" id="tdlitemcon${listitem}">
+						<div class="tdlitem" id="tdlitem${listitem}">&#8226;&nbsp;&nbsp;<p contenteditable onfocusout="edititem(${listitem});" spellcheck="false" class="tdlitemtxt" id="tdlitemtxt${listitem}">${inputtedtodolist[listitem].replace(/&nbsp;/g, "&#32;")}</p><br><br>
+							<button onclick="removeitem(${listitem});" class="wremove floatright" data-assignment-id="${listitem}" id="lremove${listitem}">&#9003;</button>
+							<button onclick="swapitems(${listitem}, ${Number(listitem) + 1});" class="wdown floatright" data-assignment-id="${listitem}" id="wdown${listitem}">&#9661;</button>
+							<button onclick="swapitems(${listitem - 1}, ${listitem});" class="wup floatright" data-assignment-id="${listitem}" id="wup${listitem}">&#9651;</button>
+						</div><br><hr>
+					</div>`;
+				}
+				returnedhtml = `
+				${listitemshtml}
+				<div id="addtdlitemdiv">
+					<button onclick="additem();" id="addtdlitembtn">+</button>
+					<input id="addtdliteminp">
+				</div>`;
+			} else {
+				returnedhtml = `
+				<div id="addtdlitemdiv">
+					<button onclick="additem();" id="addtdlitembtn">+</button>
+					<input id="addtdliteminp">
+				</div>`;
+			}
+
+			document.querySelector(".tdlpopup #todolistcon").innerHTML = returnedhtml;
+			if (inputtedtodolist !== null) {
+				for (let listitem in inputtedtodolist) {
+					for (let span of document.querySelectorAll("#tdlitemtxt" + listitem + " span")) {
+						span.outerHTML = span.innerHTML;
+					}
+				}
+			}
+			updatetdlindicator(inputtedtodolist);
+		}
+
+		function updatetdlindicator(listinp) {
+			if (listinp === null) listinp = [];
+			document.getElementById("tdlindicator").outerHTML = `<span style="display: ${listinp.length == 0 ? "none" : "inline-block"};" id="tdlindicator">${listinp.length < 100 ? listinp.length : "99+"}</span>`;
 		}
 
 		function convertdateformatting(inputteddate) {
@@ -544,19 +844,40 @@
 			id.value = localStorage.suggestedId;
 		}
 
-		load.onclick = function() {
+		load.onclick = () => {
 			if (id.value.length >= 4 && id.value.length <= 30 && !id.value.includes("/")) {
 				currentid = id.value;
-				get(child(ref(db), currentid)).then((storedassignments) => {
+
+				// assignments
+
+				get(child(ref(db), currentid + "/assignments")).then((storedassignments) => {
 					storedassignments = storedassignments.val();
 				
 					if (storedassignments !== null) {
 						// show assignments
 						assignments = Object.values(storedassignments);
 						displayassignments(assignments);
+						get(child(ref(db), currentid + "/todolist")).then((list) => {
+							todolist = (list.val() !== null ? list.val() : []);
+						});
 					} else {
 						// save assignments
-						saveData(currentid, assignments);
+						saveData(currentid + "/assignments", assignments);
+					}
+				});
+
+				// to do list
+
+				get(child(ref(db), currentid + "/todolist")).then((list) => {
+					list = list.val();
+				
+					if (list !== null) {
+						// save list to variable
+						todolist = Object.values(list);
+						updatetdlindicator(list);
+					} else {
+						// save list to database
+						saveData(currentid + "/todolist", todolist);
 					}
 				});
 
@@ -570,7 +891,7 @@
 			}
 		}
 
-		add.onclick = function() {
+		add.onclick = () => {
 			Swal.fire({
 				title: "Add Assignment",
 				icon: "info",
@@ -604,7 +925,13 @@
 			});
 		}
 
-		periodnoselect.oninput = function() {
+		todolistbtn.onclick = () => {
+			Swal.fire({
+				template: "#tdlswal"
+			});
+		}
+
+		periodnoselect.oninput = () => {
 			if (periodnoselect.value == "five") {
 				let pl1 = document.getElementsByClassName("periodlabel");
 				let pg1 = document.getElementsByClassName("periodgroup");
@@ -630,7 +957,7 @@
 			displayassignments(assignments);
 		}
 
-		switchview.onclick = function() {
+		switchview.onclick = () => {
 			if (viewtoggle) {
 				viewtoggle = false;
 				periodview.style.display = "none";
@@ -640,6 +967,7 @@
 				periodview.style.display = "block";
 				galleryview.style.display = "none";
 			}
+			displayassignments(assignments);
 		}
 
 		function editassignment(assignmentid) {
@@ -665,7 +993,7 @@
 						}
 						assignments[assignmentid] = newassignment;
 						if (currentid) {
-							saveData(currentid, assignments);
+							saveData(currentid + "/assignments", assignments);
 						}
 						displayassignments(assignments);
 					} else {
@@ -690,23 +1018,116 @@
 				reverseButtons: true
 			}).then((result) => {
 				if (result.isConfirmed) {
-					document.getElementById("assignment" + assignmentid).remove();
-					assignments.splice(Number(assignmentid), 1);
-					displayassignments(assignments);
+					let assignmentremoveanimationtimer = 120;
+					let animationassignmentid = assignmentid;
+					let assignmentremoveanimation = setInterval(() => {
+						document.getElementById("assignment" + animationassignmentid).style.opacity = assignmentremoveanimationtimer + "%";
+						if (assignmentremoveanimationtimer <= 0) {
+							setTimeout(() => {
+								document.getElementById("assignment" + animationassignmentid).remove();
+								assignments.splice(Number(assignmentid), 1);
+								displayassignments(assignments);
+							}, 250);
+							clearInterval(assignmentremoveanimation);
+						} else {
+							assignmentremoveanimationtimer -= 1;
+						}
+					}, 9);
 				}
 			});
 		}
+
+		whentdlopened = () => {
+			if (currentid && currentid != "") {
+				displayandsavelist(todolist);
+			} else {
+				displayandsavelist(null);
+			}
+		}
+
+		additem = () => {
+			let newitem = document.getElementById("addtdliteminp").value;
+			document.getElementById("addtdliteminp").value = "";
+			if (newitem != "") {
+				todolist.push(newitem);
+				displayandsavelist(todolist);
+			}
+		}
+
+		edititem = (itemid) => {
+			todolist[itemid] = document.getElementById("tdlitemtxt" + itemid).innerHTML;
+			displayandsavelist(todolist);
+		}
+
+		removeitem = (itemid) => {
+			if (!removingitem && !swappingitem) {
+				removingitem = true;
+				let itemremoveanimationtimer = 120;
+				let animationlistid = itemid;
+				let itemremoveanimation = setInterval(() => {
+					document.getElementById("tdlitem" + animationlistid).style.opacity = itemremoveanimationtimer + "%";
+					if (itemremoveanimationtimer <= 0) {
+						setTimeout(() => {
+							todolist.splice(itemid, 1);
+							displayandsavelist(todolist);
+							removingitem = false;
+						}, 100);
+						clearInterval(itemremoveanimation);
+					} else {
+						itemremoveanimationtimer -= 0.85;
+					}
+				}, 3);
+			}
+		}
+
+		swapitems = (topitemid, bottomitemid) => {
+			if ((!swappingitem && !removingitem) && (Object.keys(todolist).includes(String(topitemid)) && Object.keys(todolist).includes(String(bottomitemid)))) {
+				swappingitem = true;
+				let itemswapanimationtimer = 0;
+				let topitem = document.getElementById("tdlitemcon" + topitemid);
+				let bottomitem = document.getElementById("tdlitemcon" + bottomitemid);
+				topitem.style.position = "relative";
+				bottomitem.style.position = "relative";
+				let itemswapanimtion = setInterval(() => {
+					topitem.style.top = (-(15 + bottomitem.clientHeight) / 10000 * (100 - itemswapanimationtimer) ** 2 + (15 + bottomitem.clientHeight)) + "px";
+					bottomitem.style.bottom = (-(15 + topitem.clientHeight) / 10000 * (100 - itemswapanimationtimer) ** 2 + (15 + topitem.clientHeight)) + "px";
+					if (itemswapanimationtimer < 100) {
+						itemswapanimationtimer++;
+					} else {
+						[todolist[topitemid], todolist[bottomitemid]] = [todolist[bottomitemid], todolist[topitemid]];
+						displayandsavelist(todolist);
+						swappingitem = false;
+						clearInterval(itemswapanimtion);
+					}
+				}, 4);
+			}
+		}
 	</script>
     <script>
+    	let assignments = [];
+		let viewtoggle = true;
+		let currentid;
+		let todolist = [];
+
     	let help = document.getElementById("help");
     	let id = document.getElementById("id");
     	let load = document.getElementById("load");
     	let add = document.getElementById("add");
     	let periodnoselect = document.getElementById("periodnoselect");
+    	let todolistbtn = document.getElementById("todolistbtn");
     	let switchview = document.getElementById("switch");
     	let periodview = document.getElementById("periodview");
     	let periodlabels = document.getElementById("periodlabels");
     	let periodgroups = document.getElementById("periodgroups");
     	let galleryview = document.getElementById("galleryview");
+
+    	let whentdlopened;
+    	let additem;
+    	let edititem;
+    	let removeitem;
+    	let swapitems;
+
+    	let removingitem;
+    	let swappingitem;
     </script>
 </html>
